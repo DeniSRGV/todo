@@ -1,19 +1,30 @@
-import React from "react";
+import React, {Component} from "react";
 import './TaskFilter.css'
 
-const TaskFilter = ()=> {
+class TaskFilter extends Component {
+  render(){
+    const {dataFilter, onFilterDone} = this.props
+    let filterBtn = dataFilter.map(item =>{
+      const {label, filterDone, id} = item;
+      let clazz = '';
+      if(filterDone)
+          clazz = 'selected'
+
+        return (
+          <li key={id}>
+              <button 
+              className={clazz}
+              onClick={() => onFilterDone(id)}>{label}</button>
+            </li>
+            
+        )
+    })
     return(
         <ul className="filters">
-            <li>
-              <button className="selected">All</button>
-            </li>
-            <li>
-              <button>Active</button>
-            </li>
-            <li>
-              <button>Completed</button>
-            </li>
+            {filterBtn}
           </ul>
     )
+  }
+   
 }
 export default TaskFilter;

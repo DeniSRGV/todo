@@ -3,11 +3,12 @@ import NewTaskForm from './NewTaskForm'
 
 import './Header.css';
 
-const Header = () => {
+const Header = ({addNewItem}) => {
 	return (
 		<header className="header">
 			<h1>todos</h1>
-            <NewTaskForm/>
+            <NewTaskForm
+			addNewItem={addNewItem}/>
 		</header>
 	);
 };

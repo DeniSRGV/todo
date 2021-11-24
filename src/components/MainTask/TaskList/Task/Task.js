@@ -5,7 +5,7 @@ import "./Task.css";
 class Task extends Component {
   
     render(){
-      const {label, deleteTask, taskDone, completeTask, taskEdit, editTask, setEditTask} = this.props;
+      const {label, deleteTask, taskDone, completeTask, taskEdit, editTask, setEditTask, filterTask} = this.props;
       let clazz="";
       let clazzEdit= "hidden";
       let classView = "view"
@@ -16,6 +16,9 @@ class Task extends Component {
       if(taskEdit){
         clazzEdit = ' edit'
         classView = "hidden";
+      }
+      if(filterTask){
+        clazz = " hidden"
       }
       
       

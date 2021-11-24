@@ -8,13 +8,17 @@ import TaskFilter from "./TaskFilter/TaskFilter";
 import ButtonClear from "./ButtonClear/ButtonClear";
 
 
-const Footer = ({countTask}) => {
+const Footer = ({countTask, clearCompleted, onFilterDone, dataFilter}) => {
+    
     return(
         <footer className="footer">
             <TaskCount
             countTask={countTask}/>
-            <TaskFilter/>
-            <ButtonClear/>
+            <TaskFilter
+            dataFilter={dataFilter}
+            onFilterDone={(id) => onFilterDone(id)}/>
+            <ButtonClear
+            clearCompleted={clearCompleted}/>
         </footer>
     )
 }

@@ -6,7 +6,22 @@ import './MainTask.css';
 
 class MainTask extends Component {
     render(){
-        const {dataTask, deleteTask, countTask, completeTask, editTask,setEditTask} = this.props;
+        const {dataTask,
+            deleteTask,
+            countTask,
+            completeTask,
+            editTask,
+            setEditTask,
+            clearCompleted,
+            dataFilter,
+            onFilterDone,
+        } = this.props;
+        
+        const arrId = dataTask.reduce((acc, cum) => {
+			if (cum.taskDone) acc.push(cum.id)
+			return acc
+		}, [])
+      
         return (
             <section className="main">
                 <TaskList
@@ -16,7 +31,11 @@ class MainTask extends Component {
                 completeTask={(id)=>completeTask(id)}
                 setEditTask={setEditTask}/>
                 <Footer
-                countTask={countTask}/>
+                countTask={countTask}
+                clearCompleted={()=>clearCompleted(arrId)}
+                dataFilter={dataFilter}
+                onFilterDone={(id) => onFilterDone(id)}
+                />
             </section>
         )
     }
