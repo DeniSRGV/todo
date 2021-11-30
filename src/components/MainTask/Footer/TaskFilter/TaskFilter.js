@@ -2,7 +2,11 @@ import React, {Component} from "react";
 import './TaskFilter.css'
 
 class TaskFilter extends Component {
+  static defaultProps = {
+    onFilterDone: () => {},
+  }
   render(){
+    
     const {dataFilter, onFilterDone} = this.props
     let filterBtn = dataFilter.map(item =>{
       const {label, filterDone, id} = item;
@@ -27,4 +31,5 @@ class TaskFilter extends Component {
   }
    
 }
+
 export default TaskFilter;
