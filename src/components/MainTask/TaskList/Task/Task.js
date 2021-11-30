@@ -1,11 +1,21 @@
 import React, {Component} from "react";
-
+import PropTypes from 'prop-types';
+import { formatDistanceToNow } from "date-fns";
 import "./Task.css";
 
 class Task extends Component {
-  
+    static propTypes = {
+      label: PropTypes.string,
+      taskDone: PropTypes.bool,
+      time: PropTypes.number,
+      deleteTask: PropTypes.func,
+      completeTask: PropTypes.func,
+      taskEdit: PropTypes.bool,
+      setEditTask: PropTypes.func,
+    }
     render(){
-      const {label, deleteTask, taskDone, completeTask, taskEdit, editTask, setEditTask, filterTask} = this.props;
+      const {label, deleteTask, taskDone, completeTask, taskEdit, editTask, setEditTask, filterTask, time} = this.props;
+      const createTime = formatDistanceToNow(time, {includeSeconds: true,})
       let clazz="";
       let clazzEdit= "hidden";
       let classView = "view"
@@ -30,7 +40,7 @@ class Task extends Component {
                 <span className="description"
                 onClick={completeTask}>
                 {label}</span>
-                <span className="created">created 5 seconds ago</span>
+                <span className="created">created {createTime} ago</span>
               </label>
               <button 
               className="icon icon-edit"

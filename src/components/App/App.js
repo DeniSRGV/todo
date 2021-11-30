@@ -27,6 +27,7 @@ class App extends Component {
             taskEdit: false,
             taskActive: false,
             filterTask: false,
+            time: new Date().getTime(),
         }
     }
     addNewItem = (key, target)=> {
