@@ -2,16 +2,19 @@ import React from 'react';
 
 import './NewTaskForm.css'
 
-const CreateTodo = ({addNewItem}) => {
-
+const CreateTodo = function({addNewItem}) {
 	return (
 		<input
 			className="new-todo"
 			placeholder="What needs to be done?"
 			autoFocus
-			onKeyDown={(e)=>addNewItem(e.code, e.target)}
+			onKeyDown={(event)=>addNewItem(event.code, event.target)}
 			/>
 	)
-};
+			
+		
+		
+	
+}
 
 export default CreateTodo;

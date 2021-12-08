@@ -1,9 +1,11 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import Header from '../Header/Header';
 import MainTask from '../MainTask/MainTask';
 import './App.css'
+
 class App extends Component {
     maxId = 1;
+
     constructor(props){
       super(props)
       this.state = {
@@ -16,43 +18,57 @@ class App extends Component {
               {label: 'All', filterDone: true, id: 1},
               {label: 'Active', filterDone: false, id: 2},
               {label: 'Completed', filterDone: false, id: 3},
-          ]
+          ],
+          
       }
     }
+
     createTaskItem = (label)=> {
+        this.maxId += 1;
         return {
             label,
-            id: this.maxId++,
+            id: this.maxId,
             taskDone: false,
             taskEdit: false,
             taskActive: false,
             filterTask: false,
             time: new Date().getTime(),
         }
-    }
+            
+        }
+
     addNewItem = (key, target)=> {
-        
+        if (key === 'Enter' && target !== ''){
+            
+
         this.setState(({dataTask})=>{
-            const newTask = this.createTaskItem(target.value);
-            const Arr = [...dataTask, newTask];
-            if (key === 'Enter'){
+                const newTask = this.createTaskItem(target.value);
+                const Arr = [...dataTask, newTask];
+                // eslint-disable-next-line no-param-reassign
                 target.value = "";
+            
+                
                 return {
                     dataTask : Arr,
                 }
-            }
+            
+            
+            
         })
+    
     }
+    }
+
     deleteTask = (id)=> {
-        this.setState(({dataTask})=>{
+        this.setState(({dataTask})=>
             // const index = data.findIndex(elem=> elem.id === id);
             // const before = data.slice(0, index);
             // const after = data.slice(index + 1);
             // const newArr= [...before, ...after];
-            return {
+             ({
                 dataTask: dataTask.filter(item => item.id !== id),
-            }
-          })
+            })
+          )
     }
 
     toggleProp = (arr, id, prop)=> {
@@ -68,12 +84,11 @@ class App extends Component {
     }
  
     editTask = (id)=> {
-        this.setState(({ dataTask }) => {
-			return {
+        this.setState(({ dataTask }) => ({
 				dataTask: this.toggleProp(dataTask, id, 'taskEdit')
-			}
-		});
+			}));
     }
+
     setEditTask = (key, val, id)=> {
         // this.setState(({ dataTask }) => {
 		// 	const index = dataTask.findIndex(elem=> elem.id === id);
@@ -102,18 +117,18 @@ class App extends Component {
 					]
 				}
 			}
+            return {dataTask};
 		})
         if (key === 'Enter') {
             this.editTask(id)
         }
         
     }
+
     completeTask = (id)=> {
-        this.setState(({dataTask}) => {
-          return {
+        this.setState(({dataTask}) => ({
             dataTask: this.toggleProp(dataTask, id, 'taskDone')
-          };
-        });
+          }));
       }
     
     filterDone = (id)=> {
@@ -136,6 +151,7 @@ class App extends Component {
             }
         });
     }
+
     clearCompleted = (idArr)=> {
         idArr.forEach(id => this.deleteTask(id));
     }

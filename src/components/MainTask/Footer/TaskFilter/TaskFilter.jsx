@@ -1,18 +1,19 @@
-import React, {Component} from "react";
+import React from "react";
 import './TaskFilter.css'
 
-class TaskFilter extends Component {
-  render(){
-    const {dataFilter, onFilterDone} = this.props
-    let filterBtn = dataFilter.map(item =>{
+const TaskFilter = function({dataFilter, onFilterDone}) {
+    // const {dataFilter, onFilterDone} = this.props
+    const filterBtn = dataFilter.map(item =>{
       const {label, filterDone, id} = item;
       let clazz = '';
-      if(filterDone)
-          clazz = 'selected'
+      if(filterDone){
+        clazz = 'selected'
+      }
 
         return (
           <li key={id}>
               <button 
+              type="button"
               className={clazz}
               onClick={() => onFilterDone(id)}>{label}</button>
             </li>
@@ -24,7 +25,7 @@ class TaskFilter extends Component {
             {filterBtn}
           </ul>
     )
-  }
+  
    
 }
 export default TaskFilter;

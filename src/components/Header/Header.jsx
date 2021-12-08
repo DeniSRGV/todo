@@ -3,14 +3,14 @@ import NewTaskForm from './NewTaskForm'
 
 import './Header.css';
 
-const Header = ({addNewItem}) => {
-	return (
-		<header className="header">
+const Header = function Header({addNewItem}) {
+  return (<header className="header">
 			<h1>todos</h1>
             <NewTaskForm
 			addNewItem={addNewItem}/>
-		</header>
-	);
-};
+		</header>)
+}
+			
+
 
 export default Header;

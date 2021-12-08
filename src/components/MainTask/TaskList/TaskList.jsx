@@ -1,20 +1,20 @@
-import React, {Component} from "react";
+import React from "react";
 import Task from './Task/Task'
 import './TaskList.css'
 
-class TaskList extends Component {
-    render(){
-      const {dataTask, deleteTask, completeTask, editTask,setEditTask } = this.props
+const TaskList = function({dataTask, deleteTask, completeTask, editTask,setEditTask }) {
+    
+      
       const elems = dataTask.map(item => {
-        const {id, ...dataTask} = item;
+        const {id, ...data} = item;
         return (
           <Task
-          {...dataTask}
+          {...data}
           key={id}
           deleteTask={()=>deleteTask(id)}
           editTask={()=>editTask(id)}
           completeTask={()=>completeTask(id)}
-          setEditTask={(...e)=>setEditTask(...e, id)}/>
+          setEditTask={(...event)=>setEditTask(...event, id)}/>
         )
       })
       
@@ -24,6 +24,7 @@ class TaskList extends Component {
         </ul>
        
     )
-    }
+    
 }
 export default TaskList;
+

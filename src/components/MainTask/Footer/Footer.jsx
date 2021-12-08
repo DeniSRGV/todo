@@ -8,7 +8,7 @@ import TaskFilter from "./TaskFilter/TaskFilter";
 import ButtonClear from "./ButtonClear/ButtonClear";
 
 
-const Footer = ({countTask, clearCompleted, onFilterDone, dataFilter}) => {
+const Footer = function({countTask, clearCompleted, onFilterDone, dataFilter}) {
     
     return(
         <footer className="footer">

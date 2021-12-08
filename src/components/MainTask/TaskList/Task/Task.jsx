@@ -1,20 +1,12 @@
-import React, {Component} from "react";
+
+import React from "react";
 import PropTypes from 'prop-types';
 import { formatDistanceToNow } from "date-fns";
 import "./Task.css";
 
-class Task extends Component {
-    static propTypes = {
-      label: PropTypes.string,
-      taskDone: PropTypes.bool,
-      time: PropTypes.number,
-      deleteTask: PropTypes.func,
-      completeTask: PropTypes.func,
-      taskEdit: PropTypes.bool,
-      setEditTask: PropTypes.func,
-    }
-    render(){
-      const {label, deleteTask, taskDone, completeTask, taskEdit, editTask, setEditTask, filterTask, time} = this.props;
+const Task = function({label, deleteTask, taskDone, completeTask, taskEdit, editTask, setEditTask, filterTask, time}) {
+ 
+      
       const createTime = formatDistanceToNow(time, {includeSeconds: true,})
       let clazz="";
       let clazzEdit= "hidden";
@@ -38,23 +30,40 @@ class Task extends Component {
               <input className="toggle" type="checkbox"/>
               <label>
                 <span className="description"
-                onClick={completeTask}>
+                onKeyDown={completeTask}
+                onClick={completeTask}
+                role="menuitem"
+                tabIndex={-40}
+                aria-label={label}>
                 {label}</span>
                 <span className="created">created {createTime} ago</span>
               </label>
-              <button 
+              <button
+              type="button" 
               className="icon icon-edit"
-              onClick={editTask}></button>
-              <button 
+              onClick={editTask}
+              aria-label="Edit Task"/>
+              <button
+              type="button" 
               className="icon icon-destroy"
-              onClick={deleteTask}></button>
+              onClick={deleteTask} 
+              aria-label="Delete Task"/>
             </div>
             <input type="text"
             className={clazzEdit}
             defaultValue={label}
-            onKeyDown={(e)=>setEditTask(e.code, e.target.value)}/>
+            onKeyDown={(event)=>setEditTask(event.code, event.target.value)}/>
           </li>
         )
-    }
+    
+}
+Task.propTypes = {
+    label: PropTypes.string,
+      taskDone: PropTypes.bool,
+      time: PropTypes.number,
+      deleteTask: PropTypes.func,
+      completeTask: PropTypes.func,
+      taskEdit: PropTypes.bool,
+      setEditTask: PropTypes.func,
 }
 export default Task;
