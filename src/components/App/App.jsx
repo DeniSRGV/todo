@@ -1,186 +1,168 @@
 import React, { Component } from 'react';
 import Header from '../Header/Header';
 import MainTask from '../MainTask/MainTask';
-import './App.css'
+import './App.css';
 
 class App extends Component {
-    maxId = 1;
+  maxId = 1;
 
-    constructor(props){
-      super(props)
-      this.state = {
-          dataTask: [
-            this.createTaskItem('Completed task'),
-            this.createTaskItem('Editing task'),
-            this.createTaskItem('Active task'),
-          ],
-          dataFilter: [
-              {label: 'All', filterDone: true, id: 1},
-              {label: 'Active', filterDone: false, id: 2},
-              {label: 'Completed', filterDone: false, id: 3},
-          ],
-          
-      }
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataTask: [
+        this.createTaskItem('Completed task'),
+        this.createTaskItem('Editing task'),
+        this.createTaskItem('Active task'),
+      ],
+      dataFilter: [
+        { label: 'All', filterDone: true, id: 1 },
+        { label: 'Active', filterDone: false, id: 2 },
+        { label: 'Completed', filterDone: false, id: 3 },
+      ],
+    };
+  }
 
-    createTaskItem = (label)=> {
-        this.maxId += 1;
+  createTaskItem = (label) => {
+    this.maxId += 1;
+    return {
+      label,
+      id: this.maxId,
+      taskDone: false,
+      taskEdit: false,
+      taskActive: false,
+      filterTask: false,
+      time: new Date().getTime(),
+    };
+  };
+
+  addNewItem = (key, target) => {
+    if (key === 'Enter' && target !== '') {
+      this.setState(({ dataTask }) => {
+        const newTask = this.createTaskItem(target.value);
+        const Arr = [...dataTask, newTask];
+        // eslint-disable-next-line no-param-reassign
+        target.value = '';
+
         return {
-            label,
-            id: this.maxId,
-            taskDone: false,
-            taskEdit: false,
-            taskActive: false,
-            filterTask: false,
-            time: new Date().getTime(),
-        }
-            
-        }
-
-    addNewItem = (key, target)=> {
-        if (key === 'Enter' && target !== ''){
-            
-
-        this.setState(({dataTask})=>{
-                const newTask = this.createTaskItem(target.value);
-                const Arr = [...dataTask, newTask];
-                // eslint-disable-next-line no-param-reassign
-                target.value = "";
-            
-                
-                return {
-                    dataTask : Arr,
-                }
-            
-            
-            
-        })
-    
+          dataTask: Arr,
+        };
+      });
     }
-    }
+  };
 
-    deleteTask = (id)=> {
-        this.setState(({dataTask})=>
-            // const index = data.findIndex(elem=> elem.id === id);
-            // const before = data.slice(0, index);
-            // const after = data.slice(index + 1);
-            // const newArr= [...before, ...after];
-             ({
-                dataTask: dataTask.filter(item => item.id !== id),
-            })
-          )
-    }
+  deleteTask = (id) => {
+    this.setState(({ dataTask }) =>
+      // const index = data.findIndex(elem=> elem.id === id);
+      // const before = data.slice(0, index);
+      // const after = data.slice(index + 1);
+      // const newArr= [...before, ...after];
+      ({
+        dataTask: dataTask.filter((item) => item.id !== id),
+      })
+    );
+  };
 
-    toggleProp = (arr, id, prop)=> {
-		const index = arr.findIndex((el) => el.id === id);
-		const oldTask = arr[index];
-		const newTask = { ...oldTask, [prop]: !oldTask[prop] };
+  toggleProp = (arr, id, prop) => {
+    const index = arr.findIndex((el) => el.id === id);
+    const oldTask = arr[index];
+    const newTask = { ...oldTask, [prop]: !oldTask[prop] };
 
-		return [
-			...arr.slice(0, index),
-			newTask,
-			...arr.slice(index + 1)
-		]
-    }
- 
-    editTask = (id)=> {
-        this.setState(({ dataTask }) => ({
-				dataTask: this.toggleProp(dataTask, id, 'taskEdit')
-			}));
-    }
+    return [...arr.slice(0, index), newTask, ...arr.slice(index + 1)];
+  };
 
-    setEditTask = (key, val, id)=> {
-        // this.setState(({ dataTask }) => {
-		// 	const index = dataTask.findIndex(elem=> elem.id === id);
-        //     const ed = {label: val}
-        //     const before = dataTask.slice(0, index);
-        //     const after = dataTask.slice(index + 1);
-        //     const newArr= [...before, ed, ...after];
-        //     if(key === 'Enter'){
-        //         return {
-        //             dataTask: newArr
-        //         }
-        //     }
-            
-		// });
-        this.setState(({ dataTask }) => {
-			const index = dataTask.findIndex((el) => el.id === id);
-			const oldTask = dataTask[index];
-			const newTask = { ...oldTask, label: val };
+  editTask = (id) => {
+    this.setState(({ dataTask }) => ({
+      dataTask: this.toggleProp(dataTask, id, 'taskEdit'),
+    }));
+  };
 
-			if (key === 'Enter') {
-				return {
-					dataTask: [
-						...dataTask.slice(0, index),
-						newTask,
-						...dataTask.slice(index + 1)
-					]
-				}
-			}
-            return {dataTask};
-		})
-        if (key === 'Enter') {
-            this.editTask(id)
-        }
-        
-    }
+  setEditTask = (key, val, id) => {
+    // this.setState(({ dataTask }) => {
+    // 	const index = dataTask.findIndex(elem=> elem.id === id);
+    //     const ed = {label: val}
+    //     const before = dataTask.slice(0, index);
+    //     const after = dataTask.slice(index + 1);
+    //     const newArr= [...before, ed, ...after];
+    //     if(key === 'Enter'){
+    //         return {
+    //             dataTask: newArr
+    //         }
+    //     }
 
-    completeTask = (id)=> {
-        this.setState(({dataTask}) => ({
-            dataTask: this.toggleProp(dataTask, id, 'taskDone')
-          }));
+    // });
+    this.setState(({ dataTask }) => {
+      const index = dataTask.findIndex((el) => el.id === id);
+      const oldTask = dataTask[index];
+      const newTask = { ...oldTask, label: val };
+
+      if (key === 'Enter') {
+        return {
+          dataTask: [...dataTask.slice(0, index), newTask, ...dataTask.slice(index + 1)],
+        };
       }
-    
-    filterDone = (id)=> {
-        this.setState(({dataFilter, dataTask})=>{
-            let newDataFilter = [...dataFilter];
-            newDataFilter = newDataFilter.map((el) => ({...el, filterDone: el.id === id,}))
-            let newDataTask = [...dataTask];
-            newDataTask = newDataTask.map(el => {
-                const active = newDataFilter.findIndex((filter) => filter.id === 2);
-                const completed = newDataFilter.findIndex((filter) => filter.id === 3);
-                
-                return {
-                    ...el,
-                    filterTask: (newDataFilter[active].filterDone && el.taskDone) || (newDataFilter[completed].filterDone && !el.taskDone)
-                }
-            });
-            return {
-                dataTask: newDataTask,
-                dataFilter: newDataFilter,
-            }
-        });
+      return { dataTask };
+    });
+    if (key === 'Enter') {
+      this.editTask(id);
     }
+  };
 
-    clearCompleted = (idArr)=> {
-        idArr.forEach(id => this.deleteTask(id));
-    }
-    // handleChange = (id)=> {
-    //     if(taskDone)
-    //     this.setState(({taskDone}){
-          
-    //     })
-    //   }
-    render(){
-        const {dataTask, dataFilter} = this.state;
-        const countTask = dataTask.length - dataTask.filter((el) => el.taskDone).length
-        return (
-            <section className="todoapp">
-				<Header
-                addNewItem={this.addNewItem}/>
-                <MainTask
-                dataTask={dataTask}
-                deleteTask={this.deleteTask}
-                countTask={countTask}
-                completeTask={this.completeTask}
-                editTask={this.editTask}
-                setEditTask={this.setEditTask}
-                clearCompleted={this.clearCompleted}
-                onFilterDone={this.filterDone}
-                dataFilter={dataFilter}
-                />
-			</section>
-        )
-    }
+  completeTask = (id) => {
+    this.setState(({ dataTask }) => ({
+      dataTask: this.toggleProp(dataTask, id, 'taskDone'),
+    }));
+  };
+
+  filterDone = (id) => {
+    this.setState(({ dataFilter, dataTask }) => {
+      let newDataFilter = [...dataFilter];
+      newDataFilter = newDataFilter.map((el) => ({ ...el, filterDone: el.id === id }));
+      let newDataTask = [...dataTask];
+      newDataTask = newDataTask.map((el) => {
+        const active = newDataFilter.findIndex((filter) => filter.id === 2);
+        const completed = newDataFilter.findIndex((filter) => filter.id === 3);
+
+        return {
+          ...el,
+          filterTask:
+            (newDataFilter[active].filterDone && el.taskDone) || (newDataFilter[completed].filterDone && !el.taskDone),
+        };
+      });
+      return {
+        dataTask: newDataTask,
+        dataFilter: newDataFilter,
+      };
+    });
+  };
+
+  clearCompleted = (idArr) => {
+    idArr.forEach((id) => this.deleteTask(id));
+  };
+  // handleChange = (id)=> {
+  //     if(taskDone)
+  //     this.setState(({taskDone}){
+
+  //     })
+  //   }
+  render() {
+    const { dataTask, dataFilter } = this.state;
+    const countTask = dataTask.length - dataTask.filter((el) => el.taskDone).length;
+    return (
+      <section className="todoapp">
+        <Header addNewItem={this.addNewItem} />
+        <MainTask
+          dataTask={dataTask}
+          deleteTask={this.deleteTask}
+          countTask={countTask}
+          completeTask={this.completeTask}
+          editTask={this.editTask}
+          setEditTask={this.setEditTask}
+          clearCompleted={this.clearCompleted}
+          onFilterDone={this.filterDone}
+          dataFilter={dataFilter}
+        />
+      </section>
+    );
+  }
 }
 export default App;
