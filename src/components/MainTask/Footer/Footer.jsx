@@ -8,11 +8,11 @@ import TaskFilter from "./TaskFilter/TaskFilter";
 import ButtonClear from "./ButtonClear/ButtonClear";
 
 
-const Footer = function({countTask, clearCompleted, onFilterDone, dataFilter}) {
+const Footer = function Footer({countTask, clearCompleted, onFilterDone, dataFilter}) {
     
     return(
         <footer className="footer">
-            <TaskCount
+                    <TaskCount
             countTask={countTask}/>
             <TaskFilter
             dataFilter={dataFilter}

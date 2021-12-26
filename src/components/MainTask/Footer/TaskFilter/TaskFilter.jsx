@@ -1,7 +1,7 @@
 import React from "react";
 import './TaskFilter.css'
 
-const TaskFilter = function({dataFilter, onFilterDone}) {
+const TaskFilter = function TaskFilter({dataFilter, onFilterDone}) {
     // const {dataFilter, onFilterDone} = this.props
     const filterBtn = dataFilter.map(item =>{
       const {label, filterDone, id} = item;

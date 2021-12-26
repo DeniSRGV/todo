@@ -2,7 +2,7 @@ import React from "react";
 import './TaskCount.css'
 
 
-const TaskCount = function({countTask}) {
+const TaskCount = function TaskCount({countTask}) {
     return (
         <span className="todo-count">{countTask} items left</span>
 

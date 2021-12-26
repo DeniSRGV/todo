@@ -1,7 +1,7 @@
 import React from "react";
 import './ButtonClear.css'
 
-const ButtonClear = function({clearCompleted})  {
+const ButtonClear = function ButtonClear({clearCompleted})  {
         return (
             <button
             type="button" 

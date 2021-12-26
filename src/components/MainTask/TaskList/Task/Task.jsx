@@ -4,30 +4,29 @@ import PropTypes from 'prop-types';
 import { formatDistanceToNow } from "date-fns";
 import "./Task.css";
 
-const Task = function({label, deleteTask, taskDone, completeTask, taskEdit, editTask, setEditTask, filterTask, time}) {
+const Task = function Task({label, deleteTask, taskDone, completeTask, taskEdit, editTask, setEditTask, filterTask, time}) {
  
       
       const createTime = formatDistanceToNow(time, {includeSeconds: true,})
+      
+      
+      function viewClassname() {
       let clazz="";
-      let clazzEdit= "hidden";
-      let classView = "view"
-      
-      if(taskDone) { 
-        clazz += "completed"
+
+        if(taskDone) { 
+          clazz += "completed"
+        }
+        
+        if(filterTask){
+          clazz = "hidden"
+        }
+        return clazz;
       }
-      if(taskEdit){
-        clazzEdit = ' edit'
-        classView = "hidden";
-      }
-      if(filterTask){
-        clazz = " hidden"
-      }
-      
       
         return(
-            <li className={clazz}>
-            <div className={classView}>
-              <input className="toggle" type="checkbox"/>
+            <li className={viewClassname()}>
+            <div className={taskEdit ? "hidden" : "view"}>
+              <input className="toggle" type="checkbox" onClick={completeTask}  checked={taskDone} readOnly/>
               <label>
                 <span className="description"
                 onKeyDown={completeTask}
@@ -50,7 +49,7 @@ const Task = function({label, deleteTask, taskDone, completeTask, taskEdit, edit
               aria-label="Delete Task"/>
             </div>
             <input type="text"
-            className={clazzEdit}
+            className={taskEdit ? "edit" : "hidden"}
             defaultValue={label}
             onKeyDown={(event)=>setEditTask(event.code, event.target.value)}/>
           </li>

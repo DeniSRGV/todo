@@ -155,7 +155,12 @@ class App extends Component {
     clearCompleted = (idArr)=> {
         idArr.forEach(id => this.deleteTask(id));
     }
- 
+    // handleChange = (id)=> {
+    //     if(taskDone)
+    //     this.setState(({taskDone}){
+          
+    //     })
+    //   }
     render(){
         const {dataTask, dataFilter} = this.state;
         const countTask = dataTask.length - dataTask.filter((el) => el.taskDone).length

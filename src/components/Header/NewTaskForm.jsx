@@ -2,7 +2,7 @@ import React from 'react';
 
 import './NewTaskForm.css'
 
-const CreateTodo = function({addNewItem}) {
+const CreateTodo = function CreateTodo({addNewItem}) {
 	return (
 		<input
 			className="new-todo"
