@@ -4,7 +4,7 @@ import './TaskList.css';
 
 const TaskList = function TaskList({ dataTask, deleteTask, completeTask, editTask, setEditTask }) {
   const elems = dataTask.map((item) => {
-    const { id, ...data } = item;
+    const { min, sec, id, ...data } = item;
     return (
       <Task
         {...data}
@@ -13,6 +13,8 @@ const TaskList = function TaskList({ dataTask, deleteTask, completeTask, editTas
         editTask={() => editTask(id)}
         completeTask={() => completeTask(id)}
         setEditTask={(...event) => setEditTask(...event, id)}
+        min={min}
+        sec={sec}
       />
     );
   });

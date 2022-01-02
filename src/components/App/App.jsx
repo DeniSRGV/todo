@@ -9,23 +9,24 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataTask: [
-        this.createTaskItem('Completed task'),
-        this.createTaskItem('Editing task'),
-        this.createTaskItem('Active task'),
-      ],
+      dataTask: [],
       dataFilter: [
-        { label: 'All', filterDone: true, id: 1 },
-        { label: 'Active', filterDone: false, id: 2 },
-        { label: 'Completed', filterDone: false, id: 3 },
+        { value: 'All', filterDone: true, id: 1 },
+        { value: 'Active', filterDone: false, id: 2 },
+        { value: 'Completed', filterDone: false, id: 3 },
       ],
+      label: '',
+      min: '',
+      sec: '',
     };
   }
 
-  createTaskItem = (label) => {
+  createTaskItem = (label, min, sec) => {
     this.maxId += 1;
     return {
       label,
+      min,
+      sec,
       id: this.maxId,
       taskDone: false,
       taskEdit: false,
@@ -35,20 +36,58 @@ class App extends Component {
     };
   };
 
-  addNewItem = (key, target) => {
-    if (key === 'Enter' && target !== '') {
-      this.setState(({ dataTask }) => {
-        const newTask = this.createTaskItem(target.value);
-        const Arr = [...dataTask, newTask];
-        // eslint-disable-next-line no-param-reassign
-        target.value = '';
+  submitLabel = (event) => {
+    const { label, min, sec } = this.state;
+    event.preventDefault();
+    this.addNewTask(label, min, sec);
+    this.setState({
+      label: '',
+      min: '',
+      sec: '',
+    });
+  };
 
-        return {
-          dataTask: Arr,
-        };
-      });
+  labelChange = (event) => {
+    this.setState({
+      label: event.target.value,
+    });
+  };
+
+  minuteChange = (event) => {
+    this.setState({
+      min: event.target.value,
+    });
+  };
+
+  secondChange = (event) => {
+    this.setState({
+      sec: event.target.value,
+    });
+  };
+
+  addNewTask = (label, min, sec) => {
+    const newTaskItem = this.createTaskItem(label, min, sec);
+    if (label && label.trim() !== '') {
+      this.setState(({ dataTask }) => ({
+        dataTask: [...dataTask, newTaskItem],
+      }));
     }
   };
+
+  // addNewItem = (key, target) => {
+  //   if (key === 'Enter' && target !== '') {
+  //     this.setState(({ dataTask }) => {
+  //       const newTask = this.createTaskItem(target.value);
+  //       const Arr = [...dataTask, newTask];
+  //       // eslint-disable-next-line no-param-reassign
+  //       target.value = '';
+
+  //       return {
+  //         dataTask: Arr,
+  //       };
+  //     });
+  //   }
+  // };
 
   deleteTask = (id) => {
     this.setState(({ dataTask }) =>
@@ -138,18 +177,22 @@ class App extends Component {
   clearCompleted = (idArr) => {
     idArr.forEach((id) => this.deleteTask(id));
   };
-  // handleChange = (id)=> {
-  //     if(taskDone)
-  //     this.setState(({taskDone}){
 
-  //     })
-  //   }
   render() {
-    const { dataTask, dataFilter } = this.state;
+    const { dataTask, dataFilter, label, min, sec } = this.state;
     const countTask = dataTask.length - dataTask.filter((el) => el.taskDone).length;
     return (
       <section className="todoapp">
-        <Header addNewItem={this.addNewItem} />
+        <Header
+          addNewItem={this.addNewItem}
+          label={label}
+          min={min}
+          sec={sec}
+          submitForm={this.submitLabel}
+          labelChange={this.labelChange}
+          minuteChange={this.minuteChange}
+          secondChange={this.secondChange}
+        />
         <MainTask
           dataTask={dataTask}
           deleteTask={this.deleteTask}
