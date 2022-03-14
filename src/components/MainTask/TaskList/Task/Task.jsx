@@ -27,22 +27,16 @@ class Task extends Component {
         {zeroPad(minutes)}:{zeroPad(seconds)}
       </>
     );
-
-    const viewClassname = () => {
-      let clazz = '';
-
-      if (taskDone) {
-        clazz += 'completed';
-      }
-
-      if (filterTask) {
-        clazz = 'hidden';
-      }
-      return clazz;
-    };
+    let clazz;
+    if (taskDone) {
+      clazz = 'completed';
+    }
+    if (filterTask) {
+      clazz = 'hidden';
+    }
 
     return (
-      <li className={viewClassname()}>
+      <li className={clazz}>
         <div className={taskEdit ? 'hidden' : 'view'}>
           <input className="toggle" type="checkbox" onClick={completeTask} checked={taskDone} readOnly />
           <label>
