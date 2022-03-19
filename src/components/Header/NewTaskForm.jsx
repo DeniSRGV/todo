@@ -1,16 +1,43 @@
-import React from 'react';
+import React from 'react'
 
-import './NewTaskForm.css';
+import './NewTaskForm.css'
 
-const CreateTodo = function CreateTodo({ addNewItem }) {
+const CreateTodo = function CreateTodo({
+  label,
+  min,
+  sec,
+  submitForm,
+  labelChange,
+  minuteChange,
+  secondChange
+}) {
   return (
-    <input
-      className="new-todo"
-      placeholder="What needs to be done?"
-      autoFocus
-      onKeyDown={(event) => addNewItem(event.code, event.target)}
-    />
-  );
-};
+    <form className="new-todo-form" onSubmit={submitForm}>
+      <input
+        className="new-todo"
+        type="text"
+        placeholder="Task"
+        autoFocus
+        value={label}
+        onChange={labelChange}
+      />
+      <input
+        className="new-todo-form__timer"
+        type="number"
+        placeholder="Min"
+        value={min}
+        onChange={minuteChange}
+      />
+      <input
+        className="new-todo-form__timer"
+        type="number"
+        placeholder="Sec"
+        value={sec}
+        onChange={secondChange}
+      />
+      <button label="submit" type="submit" />
+    </form>
+  )
+}
 
-export default CreateTodo;
+export default CreateTodo
