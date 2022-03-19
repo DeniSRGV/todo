@@ -1,2 +1,1 @@
-TODO App Timer
-https://todo-timer-one.vercel.app/
+TODO App Timer https://todoapp-vercel.vercel.app/
