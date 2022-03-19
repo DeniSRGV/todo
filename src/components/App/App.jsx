@@ -4,8 +4,6 @@ import MainTask from '../MainTask/MainTask'
 import './App.css'
 
 const App = function App() {
-  // let maxId = 1;
-
   const [dataTask, setDataTask] = useState([])
   const [dataFilter, setDataFilter] = useState('all')
   const [label, setLabel] = useState('')
@@ -13,11 +11,10 @@ const App = function App() {
   const [sec, setSec] = useState('')
 
   const createTaskItem = (text, minute, second) => ({
-    // maxId += 1;
     label: text,
     min: minute,
     sec: second,
-    id: Date.now(),
+    id: Math.floor(Math.random() * 1000),
     taskDone: false,
     taskActive: false,
     filterTask: false,

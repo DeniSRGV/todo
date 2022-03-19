@@ -1,9 +1,18 @@
-import React from 'react';
-import NewTaskForm from './NewTaskForm';
+import React from 'react'
+import NewTaskForm from './NewTaskForm'
 
-import './Header.css';
+import './Header.css'
 
-const Header = function Header({ addNewItem, label, min, sec, submitForm, labelChange, secondChange, minuteChange }) {
+const Header = function Header({
+  addNewItem,
+  label,
+  min,
+  sec,
+  submitForm,
+  labelChange,
+  secondChange,
+  minuteChange
+}) {
   return (
     <header className="header">
       <h1>todos</h1>
@@ -18,7 +27,7 @@ const Header = function Header({ addNewItem, label, min, sec, submitForm, labelC
         minuteChange={minuteChange}
       />
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
