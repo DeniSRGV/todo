@@ -119,7 +119,6 @@ const Task: FC<TaskProps> = ({
         <label>
           <span
             className="description"
-            // onKeyDown={() => completeTask(false)}
             onClick={() => completeTask(false)}
             role="presentation"
             aria-label={label}
