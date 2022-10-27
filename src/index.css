@@ -50,7 +50,16 @@ body {
     height: 40px;
   }
 }
-
+@media (max-width: 576px) {
+  .todo-list li .created {
+    display: none;
+  }
+  .new-todo,
+  .new-todo,
+  .new-todo-form .new-todo-form__timer {
+    font-size: 15px;
+  }
+}
 @media (max-width: 430px) {
   .footer {
     height: 50px;
