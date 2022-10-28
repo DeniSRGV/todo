@@ -57,7 +57,12 @@ body {
   .new-todo,
   .new-todo,
   .new-todo-form .new-todo-form__timer {
+    padding: 14px 10px 14px 20px;
     font-size: 15px;
+    /* width: 15%; */
+  }
+  .submit-btn > img {
+    display: block;
   }
 }
 @media (max-width: 430px) {

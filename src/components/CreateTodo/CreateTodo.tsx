@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { ITaskItem } from '../../models/ITaskItem';
-
+import enterImg from '../../assets/enter.svg';
 import './CreateTodo.css';
 
 interface CreateTodoProps {
@@ -73,7 +73,9 @@ const CreateTodo: FC<CreateTodoProps> = ({ setDataTask }) => {
           value={sec}
           onChange={secondChange}
         />
-        <button aria-label="submit-btn" type="submit" />
+        <button aria-label="submit-btn" className="submit-btn" type="submit">
+          <img src={enterImg} alt="enter" />
+        </button>
       </form>
     </header>
   );
