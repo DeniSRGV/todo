@@ -28,18 +28,18 @@ const Task: FC<TaskProps> = ({
   const [isToggle, setIsToggle] = useState(true);
   const dateTime = useMemo(() => Date.now() + (+min * 60 + +sec) * 1000, []);
   const [labelEdit, setLabelEdit] = useState(item.label || '');
-  const timeRef = useRef<any>(null);
+  const timeRef = useRef<Countdown | null>(null);
   const editRef = useRef<HTMLInputElement>(null);
 
   const [, toggle] = useAudio(doneAudio);
 
   const saveTimeLocal = () => {
-    const t = timeRef?.current.state.timeDelta;
+    const t = timeRef?.current?.state.timeDelta;
     setDataTask((data) =>
       data.map((el) => {
         if (el.id === item.id) {
-          el.min = String(t.minutes);
-          el.sec = String(t.seconds);
+          el.min = String(t?.minutes);
+          el.sec = String(t?.seconds);
         }
 
         return el;

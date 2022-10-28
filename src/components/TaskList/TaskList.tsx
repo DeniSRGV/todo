@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { ITaskItem } from '../../models/ITaskItem';
 import Task from '../Task/Task';
+
 import './TaskList.css';
 
 interface TaskListProps {
@@ -20,17 +22,18 @@ const TaskList: FC<TaskListProps> = ({
   };
   return (
     <section className="main">
-      <ul className="todo-list">
+      <TransitionGroup component="ul" className="todo-list">
         {dataTask.map((item) => (
-          <Task
-            key={item.id}
-            completeTask={(flag: boolean) => completeTask(item.id, flag)}
-            setDataTask={setDataTask}
-            deleteTask={() => deleteTask(item.id)}
-            item={item}
-          />
+          <CSSTransition key={item.id} timeout={500} classNames="item">
+            <Task
+              completeTask={(flag: boolean) => completeTask(item.id, flag)}
+              setDataTask={setDataTask}
+              deleteTask={() => deleteTask(item.id)}
+              item={item}
+            />
+          </CSSTransition>
         ))}
-      </ul>
+      </TransitionGroup>
     </section>
   );
 };
